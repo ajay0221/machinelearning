@@ -20,7 +20,7 @@ def neural_network_model(data):
                       'biases': tf.Variable(tf.random_normal([n_nodes_hl2]))}
     hidden_3_layer = {'weights': tf.Variable(tf.random_normal([n_nodes_hl2, n_nodes_hl3])),
                       'biases': tf.Variable(tf.random_normal([n_nodes_hl3]))}
-    output_layer = {'weights': tf.Variable(tf.random_normal([n_nodes_hl2, n_classes])),
+    output_layer = {'weights': tf.Variable(tf.random_normal([n_nodes_hl3, n_classes])),
                       'biases': tf.Variable(tf.random_normal([n_classes]))}
                       
     l1 = tf.add(tf.matmul(data, hidden_1_layer['weights']), hidden_1_layer['biases'])
@@ -40,7 +40,7 @@ def train_neural_network(x):
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(prediction,y))
     optimizer = tf.train.AdamOptimizer().minimize(cost)
     
-    hm_epochs = 20
+    hm_epochs = 100
     with tf.Session() as sess:
         sess.run(tf.initialize_all_variables())
         for epoch in range(hm_epochs):
